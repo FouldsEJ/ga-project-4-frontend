@@ -1,5 +1,6 @@
 import React from 'react';
 import { getAllPosts } from '../api/posts';
+import FeedCard from './FeedCard';
 
 function Feed() {
   const [posts, setPosts] = React.useState('');
@@ -22,11 +23,7 @@ function Feed() {
     <>
       <h1>Feed Page </h1>
       {posts.map((post) => (
-        <div>
-          <h2>{post.title}</h2>
-          <p>{post.text}</p>
-          <img src={post.image_url} alt={post.title} />
-        </div>
+        <FeedCard key={post.id} {...post} />
       ))}
     </>
   );

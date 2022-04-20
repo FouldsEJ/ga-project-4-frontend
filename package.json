@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production --env NODE_ENV=production",
-    "start:client": "webpack-dev-server --mode=development --env NODE_ENV=local"
+    "start:client": "webpack-dev-server --mode=development --env NODE_ENV=local",
+    "start:tailwind": "npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,6 @@
     "bulma": "^0.9.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^6.2.2"
+    "react-router-dom": "^6.3.0"
   }
 }
