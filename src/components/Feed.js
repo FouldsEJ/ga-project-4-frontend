@@ -21,7 +21,6 @@ function Feed() {
 
   return (
     <>
-      <h1>Feed Page </h1>
       {posts.map((post) => (
         <FeedCard key={post.id} {...post} />
       ))}

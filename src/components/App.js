@@ -9,6 +9,7 @@ import Feed from './Feed';
 import Connect from './Connect';
 import Login from './Login';
 import SignUp from './SignUp';
+import Profile from './Profile';
 
 const App = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const App = () => (
       <Route path='/connect' element={<Connect />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
+      <Route path='/profile' element={<Profile />} />
     </Routes>
   </BrowserRouter>
 );

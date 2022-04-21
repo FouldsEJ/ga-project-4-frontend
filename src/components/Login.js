@@ -1,9 +1,10 @@
 import React from 'react';
 import { loginUser } from '../api/auth';
-import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [loginData, setLoginData] = React.useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.id]: e.target.value });
@@ -14,7 +15,7 @@ function Login() {
     const getData = async () => {
       try {
         const { data } = await loginUser(loginData);
-        // sessionStorage.setItem('accessToken', data.token);
+        navigate('/profile');
       } catch (err) {
         console.error(err);
       }
@@ -61,6 +62,7 @@ function Login() {
             <button
               className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
               type='button'
+              onClick={handleSubmit}
             >
               Sign In
             </button>

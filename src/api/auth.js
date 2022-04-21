@@ -9,10 +9,14 @@ export const getAllUsers = async () => {
   return data;
 };
 
-export const getSingleUser = async (id) => {
+export const getSingleUser = async () => {
+  console.log('working');
   const options = {
     method: 'GET',
-    url: `http://127.0.0.1:8000/authentication/credentials/${id}`,
+    url: `http://127.0.0.1:8000/authentication/credentials/`,
+    headers: {
+      authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
+    },
   };
   const { data } = await axios.request(options);
   return data;
