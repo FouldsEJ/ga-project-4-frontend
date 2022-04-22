@@ -75,7 +75,7 @@ function Messenger({ id, rooms }) {
               className='w-16 h-16 shadow-md rounded-full object-cover'
               id={room.id}
               src={room.image}
-              alt='User2'
+              alt={room.name}
             />
 
             <p
