@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { getAllCountries } from '../api/countries';
 
 function SignUp() {
-  const [formInput, setFormInput] = React.useState({ rooms: [] }); //Rooms added as a blank field as required by backend
+  const [formInput, setFormInput] = React.useState({
+    rooms: [],
+    date_joined: new Date(),
+  }); //Rooms added as a blank field as required by backend
   const [countries, setCountries] = React.useState('');
   const [responseError, setResponseError] = React.useState('');
 

@@ -7,6 +7,7 @@ const initialNewPost = {
   title: '',
   text: '',
   created_by: getLoggedInUserId(),
+  created_datetime: new Date(),
   image_url: '',
   video_url: '',
 };
@@ -14,6 +15,7 @@ const initialNewPost = {
 function Feed() {
   const [posts, setPosts] = React.useState('');
   const [newPost, setNewPost] = React.useState(initialNewPost);
+  const [renderDelete, setRenderDelete] = React.useState(true);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -21,7 +23,7 @@ function Feed() {
       setPosts(postData);
     };
     getData();
-  }, [newPost]);
+  }, [newPost, renderDelete]);
 
   function handleNewPostChange(e) {
     setNewPost({ ...newPost, [e.target.id]: e.target.value });
@@ -119,7 +121,12 @@ function Feed() {
         </div>
         <div className='col-span-3'>
           {posts.map((post) => (
-            <FeedCard key={post.id} {...post} />
+            <FeedCard
+              key={post.id}
+              {...post}
+              renderDelete={renderDelete}
+              setRenderDelete={setRenderDelete}
+            />
           ))}
         </div>
       </section>

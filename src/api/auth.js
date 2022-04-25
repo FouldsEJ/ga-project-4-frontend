@@ -1,4 +1,6 @@
 import axios from 'axios';
+const baseUrl = `http://127.0.0.1:8000/`;
+// const baseUrl = `https://spikesquad.herokuapp.com/`;
 
 export const getAllUsers = async (username_search, user_id) => {
   console.log(username_search, user_id);
@@ -8,9 +10,9 @@ export const getAllUsers = async (username_search, user_id) => {
   };
 
   if (!username_search) {
-    options.url = `http://127.0.0.1:8000/authentication/allusers/?search=&userid=${user_id}`;
+    options.url = `${baseUrl}authentication/allusers/?search=&userid=${user_id}`;
   } else {
-    options.url = `http://127.0.0.1:8000/authentication/allusers/?search=${username_search}&userid=${user_id}`;
+    options.url = `${baseUrl}authentication/allusers/?search=${username_search}&userid=${user_id}`;
   }
   const { data } = await axios.request(options);
   return data;
@@ -20,7 +22,7 @@ export const getSingleUser = async () => {
   console.log('working');
   const options = {
     method: 'GET',
-    url: `http://127.0.0.1:8000/authentication/credentials/`,
+    url: `${baseUrl}authentication/credentials/`,
     headers: {
       authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
     },
@@ -32,7 +34,7 @@ export const getSingleUser = async () => {
 export const loginUser = async (credentials) => {
   const options = {
     method: 'POST',
-    url: 'http://127.0.0.1:8000/authentication/login/',
+    url: `${baseUrl}authentication/login/`,
     data: credentials,
   };
   const { data } = await axios.request(options);
@@ -48,7 +50,7 @@ export const loginUser = async (credentials) => {
 export const registerUser = async (user) => {
   const options = {
     method: 'POST',
-    url: 'http://127.0.0.1:8000/authentication/register/',
+    url: `${baseUrl}authentication/register/`,
     data: user,
   };
   const { data } = await axios.request(options);

@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+const baseUrl = `http://127.0.0.1:8000/`;
+// const baseUrl = `https://spikesquad.herokuapp.com/`;
+
 export const createRoom = async (newRoom) => {
   console.log('newchat data: ', newRoom);
   const options = {
     method: 'POST',
-    url: `http://127.0.0.1:8000/rooms/`,
+    url: `${baseUrl}rooms/`,
     data: newRoom,
     headers: {
       authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
@@ -19,7 +22,7 @@ export const createRoom = async (newRoom) => {
 export const getChatsByRoom = async (roomid) => {
   const options = {
     method: 'GET',
-    url: `http://127.0.0.1:8000/chats/?roomid=${roomid}`,
+    url: `${baseUrl}chats/?roomid=${roomid}`,
   };
   const { data } = await axios.request(options);
 
@@ -30,7 +33,7 @@ export const createChat = async (newChat) => {
   console.log('newchat data: ', newChat);
   const options = {
     method: 'POST',
-    url: `http://127.0.0.1:8000/chats/`,
+    url: `${baseUrl}chats/`,
     data: newChat,
     headers: {
       authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
@@ -46,7 +49,7 @@ export const getAllRoomsForUser = async (userid, roomname) => {
   console.log('getAllusersroom');
   const options = {
     method: 'GET',
-    url: `http://127.0.0.1:8000/rooms/?userid=${userid}&search=${roomname}`,
+    url: `${baseUrl}rooms/?userid=${userid}&search=${roomname}`,
   };
   const { data } = await axios.request(options);
   console.log('Here:', data);
@@ -57,7 +60,7 @@ export const getAllRoomsForUser = async (userid, roomname) => {
 export const getRoomById = async (id) => {
   const options = {
     method: 'GET',
-    url: `http://127.0.0.1:8000/rooms/${id}/`,
+    url: `${baseUrl}rooms/${id}/`,
   };
   const { data } = await axios.request(options);
 

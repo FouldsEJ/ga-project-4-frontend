@@ -8,7 +8,6 @@ import {
   getCommentsByPost,
   getLikesByPost,
 } from '../api/posts';
-import { getSingleUser } from '../api/auth';
 
 function FeedCard({
   title,
@@ -18,6 +17,8 @@ function FeedCard({
   text,
   created_by,
   created_datetime,
+  renderDelete,
+  setRenderDelete,
 }) {
   const [likes, setLikes] = React.useState('');
   const [comments, setComments] = React.useState('');
@@ -100,6 +101,7 @@ function FeedCard({
   const handleDeletePost = async (e) => {
     try {
       await deletePost(id);
+      setRenderDelete(!renderDelete);
     } catch (err) {
       console.error(err);
     }
@@ -139,7 +141,7 @@ function FeedCard({
         </div>
 
         <div className='flex flex-col items-center justify-center'>
-          <h2 className='font-semibold'>Title: {title}</h2>
+          <h2 className='font-semibold'>{title}</h2>
           <p className='mr-auto px-5'>{text}</p>
           {image_url && (
             <img

@@ -74,8 +74,8 @@ function Messenger() {
   }
   return (
     <div className='w-screen h-screen grid grid-cols-3 border-2 bg-gray-900 text-gray-200 '>
-      <div className='col-span-1 overflow-auto'>
-        <div className='bg-gray-700 py-3.5'>
+      <div className='col-span-1 h-full w-full'>
+        <div className='bg-gray-700 py-3.5 h-1/6 '>
           <input
             type='text'
             id='newchat'
@@ -86,28 +86,29 @@ function Messenger() {
           />
           <NewChat newRoomInfo={newRoomInfo} setNewRoomInfo={setNewRoomInfo} />
         </div>
-        {usersRooms.map((room) => (
-          <div
-            key={room.id}
-            id={room.id}
-            onClick={handleRoomClick}
-            className='flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative'
-          >
-            <img
-              className='w-16 h-16 shadow-md rounded-full object-cover'
+        <div className='h-max overflow-auto '>
+          {usersRooms.map((room) => (
+            <div
+              key={room.id}
               id={room.id}
-              src={room.image}
-              alt={room.name}
-            />
-
-            <p
-              className='flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block'
-              id={room.id}
+              onClick={handleRoomClick}
+              className='flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative'
             >
-              {room.name}
-            </p>
-          </div>
-        ))}
+              <img
+                className='w-16 h-16 shadow-md rounded-full object-cover'
+                id={room.id}
+                src={room.image}
+                alt={room.name}
+              />
+              <p
+                className='flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block'
+                id={room.id}
+              >
+                {room.name}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {!currentRoomInfo ? (
