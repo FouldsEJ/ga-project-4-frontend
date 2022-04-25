@@ -8,7 +8,8 @@ import {
 import { getLoggedInUserId } from '../lib/auth';
 import NewChat from './NewChat';
 
-function Messenger({ id }) {
+function Messenger() {
+  const userId = getLoggedInUserId();
   const [currentRoomId, setCurrentRoomId] = React.useState('');
   const [currentRoomInfo, setCurrentRoomInfo] = React.useState('');
   const [usersRooms, setUsersRooms] = React.useState('');
@@ -17,13 +18,13 @@ function Messenger({ id }) {
   const [newMessage, setNewMessage] = React.useState({
     text: '',
     room_id: currentRoomId,
-    created_by: id,
+    created_by: userId,
   });
 
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const usersRoomsData = await getAllRoomsForUser(id, roomSearch);
+        const usersRoomsData = await getAllRoomsForUser(userId, roomSearch);
         setUsersRooms(usersRoomsData);
 
         if (currentRoomId) {

@@ -40,10 +40,11 @@ function NewChat() {
     //     users: oldArray,
     //   });
     // }
-    const oldArray = newChatInfo.users;
-    console.log('Old array', oldArray);
-    oldArray.push(e.target.id);
-    setNewChatInfo({ ...newChatInfo, users: oldArray });
+
+    setNewChatInfo({
+      ...newChatInfo,
+      users: [...newChatInfo.users, parseInt(e.target.value)],
+    });
   };
 
   function handleUpload(e) {
@@ -93,6 +94,7 @@ function NewChat() {
           <select
             id='users'
             name='users'
+            value=''
             defaultValue={''}
             className='w-1/2 px-2 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
             onChange={(e) => handleMemberChange(e, index)}
@@ -101,12 +103,7 @@ function NewChat() {
               Select your option
             </option>
             {allUsers.map((user) => (
-              <option
-                key={user.id}
-                id={user.id}
-                value={user.username}
-                image={user.image}
-              >
+              <option key={user.id} value={user.id}>
                 {user.username}
               </option>
             ))}

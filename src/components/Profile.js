@@ -105,7 +105,6 @@ function Profile() {
       </section>
       <section className='container m-auto'>
         <h2 className='text-center font-bold text-3xl my-10'>Messages</h2>
-        <Messenger {...user} />
       </section>
     </>
   );

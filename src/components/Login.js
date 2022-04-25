@@ -16,7 +16,7 @@ function Login() {
     const getData = async () => {
       try {
         const { data } = await loginUser(loginData);
-        navigate('/profile');
+        navigate('/myprofile');
       } catch (err) {
         console.error(err);
         setResponseError(err.response.data.message);

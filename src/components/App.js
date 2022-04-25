@@ -10,6 +10,7 @@ import Connect from './Connect';
 import Login from './Login';
 import SignUp from './SignUp';
 import Profile from './Profile';
+import Messenger from './Messenger';
 
 const App = () => (
   <BrowserRouter>
@@ -20,7 +21,9 @@ const App = () => (
       <Route path='/connect' element={<Connect />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
-      <Route path='/profile' element={<Profile />} />
+      <Route path='/myprofile' element={<Profile />} />
+      <Route path='/profile/:profileId' element={<Profile />} />
+      <Route path='/messenger' element={<Messenger />} />
     </Routes>
   </BrowserRouter>
 );
