@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createRoom } from '../api/chats';
+import { getLoggedInUserId, getLoggedInUserName } from '../lib/auth';
 
 function PlayerCard({
+  id,
   username,
   first_name,
   last_name,
@@ -11,19 +14,38 @@ function PlayerCard({
   town,
   country,
 }) {
+  const newRoomDetails = {
+    name: username,
+    users: [getLoggedInUserId(), id],
+    image: image,
+  };
+
+  const handleConnectClick = async (e) => {
+    console.log('New room being created');
+    try {
+      await createRoom(newRoomDetails);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
-      <div class='flex items-center justify-center '>
-        <div class='bg-white font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs'>
+      <div className='flex items-center justify-center '>
+        <div className='bg-white font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs'>
           <img
-            class='mb-3 w-32 h-32 rounded-full shadow-lg mx-auto'
+            className='mb-3 w-32 h-32 rounded-full shadow-lg mx-auto'
             src={image}
-            alt='product designer'
+            alt={username}
           />
-          <h1 class='text-lg text-gray-700'>{first_name}</h1>
-          <h3 class='text-sm text-gray-400 '>{ability}</h3>
-          <p class='text-xs text-gray-400 mt-4'> {description} </p>
-          <button class='bg-indigo-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide'>
+          <h1 className='text-lg text-gray-700'>{username}</h1>
+          <h3 className='text-sm text-gray-400 '>{ability}</h3>
+          <p className='text-xs text-gray-400 mt-4'> {description} </p>
+
+          <button
+            className='bg-indigo-600 px-8 py-2 mt-8 rounded-3xl text-gray-100 font-semibold uppercase tracking-wide'
+            onClick={handleConnectClick}
+          >
             Connect
           </button>
         </div>

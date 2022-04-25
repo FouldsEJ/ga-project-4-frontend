@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getLoggedInUserId } from '../lib/auth';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    navigate('/');
+  };
+
   return (
     <>
       <header>
@@ -12,44 +21,63 @@ function Navbar() {
                 to=''
                 className=' hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium'
               >
-                SpikeSquad
+                <i className='fa-solid fa-volleyball'></i>SpikeSquad
               </Link>
 
-              <Link
-                to='/feed'
-                className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-              >
-                Feed
-              </Link>
+              {getLoggedInUserId() && (
+                <>
+                  <Link
+                    to='/feed'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  >
+                    Feed
+                  </Link>
 
-              <Link
-                to='/connect'
-                className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-              >
-                Connect
-              </Link>
+                  <Link
+                    to='/connect'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  >
+                    Connect
+                  </Link>
+                </>
+              )}
             </div>
+
             <div className='flex items-baseline space-x-4'>
-              <Link
-                to='/login'
-                className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-              >
-                Login
-              </Link>
+              {getLoggedInUserId() && (
+                <>
+                  <Link
+                    to='/profile'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    to='/profile'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
 
-              <Link
-                to='/profile'
-                className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-              >
-                Profile
-              </Link>
-
-              <Link
-                to='/signup'
-                className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-              >
-                SignUp
-              </Link>
+              {!getLoggedInUserId() && (
+                <>
+                  <Link
+                    to='/login'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to='/signup'
+                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  >
+                    SignUp
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </nav>

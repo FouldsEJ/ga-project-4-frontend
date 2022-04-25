@@ -1,28 +1,43 @@
 import React from 'react';
-import { getChatsByRoom, createChat } from '../api/chats';
+import {
+  getChatsByRoom,
+  createChat,
+  getRoomById,
+  getAllRoomsForUser,
+} from '../api/chats';
 import { getLoggedInUserId } from '../lib/auth';
+import NewChat from './NewChat';
 
-function Messenger({ id, rooms }) {
-  const [currentRoom, setCurrentRoom] = React.useState('');
+function Messenger({ id }) {
+  const [currentRoomId, setCurrentRoomId] = React.useState('');
+  const [currentRoomInfo, setCurrentRoomInfo] = React.useState('');
+  const [usersRooms, setUsersRooms] = React.useState('');
   const [roomSearch, setRoomSearch] = React.useState('');
   const [chats, setChats] = React.useState('');
   const [newMessage, setNewMessage] = React.useState({
     text: '',
-    room_id: currentRoom,
+    room_id: currentRoomId,
     created_by: id,
   });
 
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getChatsByRoom(currentRoom);
-        setChats(data);
+        const usersRoomsData = await getAllRoomsForUser(id, roomSearch);
+        setUsersRooms(usersRoomsData);
+
+        if (currentRoomId) {
+          const chatData = await getChatsByRoom(currentRoomId);
+          const currentRoomData = await getRoomById(currentRoomId);
+          setChats(chatData);
+          setCurrentRoomInfo(currentRoomData);
+        }
       } catch (err) {
         console.error(err);
       }
     };
     getData();
-  }, [currentRoom]);
+  }, [currentRoomId, roomSearch]);
 
   const handleRoomSearch = (e) => {
     setRoomSearch(e.target.value);
@@ -30,7 +45,7 @@ function Messenger({ id, rooms }) {
 
   const handleRoomClick = (e) => {
     console.log(e.target.id);
-    setCurrentRoom(e.target.id);
+    setCurrentRoomId(e.target.id);
     setNewMessage({ ...newMessage, room_id: e.target.id });
   };
 
@@ -49,22 +64,25 @@ function Messenger({ id, rooms }) {
 
   console.log('Room search', roomSearch);
 
-  if (!rooms) {
+  if (!usersRooms) {
     return <p>Loading...</p>;
   }
-  console.log('Room:', currentRoom);
+  console.log('Room:', currentRoomId);
   return (
     <div className='w-full h-full grid grid-cols-3 border-2 bg-gray-900 text-gray-200'>
       <div className='col-span-1'>
-        <input
-          type='text'
-          id='newchat'
-          placeholder='Search'
-          className='m-auto w-9/12 text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 grid place-items-center'
-          onChange={handleRoomSearch}
-          value={roomSearch}
-        />
-        {rooms.map((room) => (
+        <div className='bg-gray-700 py-3.5'>
+          <input
+            type='text'
+            id='newchat'
+            placeholder='Search Messages'
+            className='m-auto w-9/12 text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 grid place-items-center'
+            onChange={handleRoomSearch}
+            value={roomSearch}
+          />
+          <NewChat />
+        </div>
+        {usersRooms.map((room) => (
           <div
             key={room.id}
             id={room.id}
@@ -88,19 +106,19 @@ function Messenger({ id, rooms }) {
         ))}
       </div>
 
-      {!currentRoom ? (
+      {!currentRoomInfo ? (
         <p className='flex justify-center items-center col-span-2 border-l-2'>
           Click on a chat to see the messages!
         </p>
       ) : (
         <div className='col-span-2 border-l-2'>
-          <div className='flex bg-green-700 '>
+          <div className='flex bg-gray-700 justify-center items-center py-3'>
             <img
-              src={currentRoom.image}
-              alt={currentRoom.name}
-              className='h-16 w-16 rounded-full z-10'
+              src={currentRoomInfo.image}
+              alt={currentRoomInfo.name}
+              className='h-20 w-20 rounded-full mx-5'
             />
-            <h2>{currentRoom.name}</h2>
+            <h2 className='text-2xl'>{currentRoomInfo.name}</h2>
           </div>
           {chats &&
             chats.map((chat) => (

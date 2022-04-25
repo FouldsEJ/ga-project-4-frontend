@@ -1,11 +1,21 @@
 // @import '~bulma/bulma.sass';
 .hero {
-  background-image: url('https://standuppaddleboardworld.com/wp-content/uploads/2020/09/Spikeball.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('../images/hero.jpeg');
+  // url('https://standuppaddleboardworld.com/wp-content/uploads/2020/09/Spikeball.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
   position: relative;
+
+  h1 {
+    text-align: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   button {
     text-align: center;
@@ -14,4 +24,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+.herosignup {
+  background-image: url('https://cdn.shopify.com/s/files/1/0152/1325/files/SPIKEBALL_2016_COMBO_0878.jpg?v=1576690897');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  position: relative;
+}
+.herologin {
+  background-image: url('https://images.squarespace-cdn.com/content/v1/5346a846e4b0101b157468cf/1431450175656-BQ5QLI6G1VZ2J5RREDSH/DSC06815.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  position: relative;
 }

@@ -1,6 +1,14 @@
 import React from 'react';
 import { getLoggedInUserId } from '../lib/auth';
-import { createComment, addLike, deletePost } from '../api/posts';
+import {
+  createComment,
+  addLike,
+  deleteLike,
+  deletePost,
+  getCommentsByPost,
+  getLikesByPost,
+} from '../api/posts';
+import { getSingleUser } from '../api/auth';
 
 function FeedCard({
   title,
@@ -9,10 +17,11 @@ function FeedCard({
   video_url,
   text,
   created_by,
-  likes,
-  comments,
   created_datetime,
 }) {
+  const [likes, setLikes] = React.useState('');
+  const [comments, setComments] = React.useState('');
+  const [render, setRender] = React.useState(false);
   const [newComment, setNewComment] = React.useState({
     text: '',
     post_id: id,
@@ -24,6 +33,21 @@ function FeedCard({
     viewingComments: false,
   });
 
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const commentsData = await getCommentsByPost(id);
+        const likesData = await getLikesByPost(id);
+        setComments(commentsData);
+        setLikes(likesData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getData();
+  }, [render]);
+
   const handleViewComments = () => {
     setAcionsCompleted({
       ...actionsCompleted,
@@ -32,8 +56,21 @@ function FeedCard({
   };
 
   const handleAddLike = async () => {
+    const alreadyLiked = likes.filter(
+      (like) => like.created_by === getLoggedInUserId()
+    );
+
+    console.log('already liked: ', alreadyLiked);
+
     try {
-      await addLike(newComment);
+      if (alreadyLiked.length === 0) {
+        console.log('adding like');
+        await addLike(newComment);
+      } else {
+        console.log('deleting like');
+        await deleteLike(alreadyLiked[0].id);
+      }
+      setRender(!render);
     } catch (err) {
       console.log(err);
     }
@@ -54,6 +91,7 @@ function FeedCard({
     try {
       await createComment(newComment);
       setNewComment({ ...newComment, text: '' });
+      setRender(!render);
     } catch (err) {
       console.log(err);
     }
@@ -67,17 +105,19 @@ function FeedCard({
     }
   };
 
-  console.log(actionsCompleted.viewingComments);
+  console.log('likes', likes);
+  let x = likes.includes(created_by === getLoggedInUserId());
+  console.log(x);
 
+  if (!comments || !likes) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className='container m-auto my-10'>
       <div className='w-8/12 m-auto border-2 border-b-4 border-gray-200 rounded-xl'>
         <div className='grid grid-cols-6 p-5 gap-y-2'>
           <div>
-            <img
-              src={created_by.image}
-              className='max-w-16 max-h-16 rounded-full'
-            />
+            <img src={created_by.image} className='w-16 h-16 rounded-full' />
           </div>
           <div className='col-span-5 md:col-span-4 ml-4'>
             <p className='text-gray-600 font-bold'> {created_by.username} </p>
@@ -134,7 +174,9 @@ function FeedCard({
             className='my-2 bg-blue-500 py-1 px-4 rounded text-white text-sm'
             onClick={handleAddLike}
           >
-            Like
+            {likes.some((like) => like.created_by === getLoggedInUserId())
+              ? 'Unlike'
+              : 'Like'}
           </button>
           <button
             className='my-2 bg-blue-500 py-1 px-4 rounded text-white text-sm'

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (username_search) => {
   const options = {
     method: 'GET',
-    url: 'http://127.0.0.1:8000/authentication/allusers/',
+    url: `http://127.0.0.1:8000/authentication/allusers/?search=${username_search}`,
   };
   const { data } = await axios.request(options);
   return data;
@@ -36,4 +36,15 @@ export const loginUser = async (credentials) => {
   }
 
   return data.message;
+};
+
+export const registerUser = async (user) => {
+  const options = {
+    method: 'POST',
+    url: 'http://127.0.0.1:8000/authentication/register/',
+    data: user,
+  };
+  const { data } = await axios.request(options);
+
+  return data;
 };

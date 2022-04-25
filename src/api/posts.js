@@ -40,6 +40,16 @@ export const deletePost = async (id) => {
   return data;
 };
 
+export const getCommentsByPost = async (postid) => {
+  const options = {
+    method: 'GET',
+    url: `${baseUrl}comments/?postid=${postid}`,
+  };
+  const { data } = await axios.request(options);
+
+  return data;
+};
+
 export const createComment = async (newComment) => {
   console.log('newcommnet data: ', newComment);
   const options = {
@@ -56,12 +66,36 @@ export const createComment = async (newComment) => {
   return data;
 };
 
+export const getLikesByPost = async (postid) => {
+  const options = {
+    method: 'GET',
+    url: `${baseUrl}likes/?postid=${postid}`,
+  };
+  const { data } = await axios.request(options);
+
+  return data;
+};
+
 export const addLike = async (newLike) => {
   console.log('newlike data: ', newLike);
   const options = {
     method: 'POST',
     url: `${baseUrl}likes/`,
     data: newLike,
+    headers: {
+      authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
+    },
+  };
+
+  const { data } = await axios.request(options);
+
+  return data;
+};
+
+export const deleteLike = async (id) => {
+  const options = {
+    method: 'DELETE',
+    url: `${baseUrl}likes/${id}/`,
     headers: {
       authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
     },

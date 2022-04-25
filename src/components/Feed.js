@@ -28,11 +28,12 @@ function Feed() {
   }
 
   function handleUpload(e) {
+    e.preventDefault();
     window.cloudinary
       .createUploadWidget(
         {
-          cloudName: 'dbfud6pz0', //!this will be your cloud name - this should be in your .env
-          uploadPreset: 'testing', //!this will be your upload presets - this should be in your .env
+          cloudName: process.env.CLOUD_NAME,
+          uploadPreset: process.env.UPLOAD_PRESET,
           cropping: true,
         },
         (err, result) => {
