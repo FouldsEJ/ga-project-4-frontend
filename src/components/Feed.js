@@ -66,52 +66,63 @@ function Feed() {
 
   return (
     <>
-      <div className='border'>
-        <h2>Create a Post</h2>
-        <label htmlFor='title'>Title:</label>
-        <input
-          type='text'
-          id='title'
-          placeholder='Title'
-          className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4  place-items-center'
-          onChange={handleNewPostChange}
-          value={newPost.title}
-        />
-        <label htmlFor='text'>Text:</label>
-        <input
-          type='text'
-          id='text'
-          placeholder='Share your latest spikeball story!'
-          className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
-          onChange={handleNewPostChange}
-          value={newPost.text}
-        />
-        <label htmlFor='image_url'>Image:</label>
-        <button
-          className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
-          id='image_url'
-          onClick={handleUpload}
-        >
-          Upload Image
-        </button>
-        <label htmlFor='video_url'>Video:</label>
-        <button
-          className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
-          id='video_url'
-          onClick={handleUpload}
-        >
-          Upload Video
-        </button>
-        <button
-          className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
-          onClick={handlePost}
-        >
-          Post
-        </button>
-      </div>
-      {posts.map((post) => (
-        <FeedCard key={post.id} {...post} />
-      ))}
+      <section className='grid grid-cols-4'>
+        <div className='border col-span-1 h-screen pt-10'>
+          <h2 className='font-bold text-center'>Create Your Own Post</h2>
+          <div className='flex flex-col justify-center'>
+            <label htmlFor='title'></label>
+            <input
+              type='text'
+              id='title'
+              placeholder='Post Title '
+              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 m-2  place-items-center'
+              onChange={handleNewPostChange}
+              value={newPost.title}
+            />
+            <label htmlFor='text'></label>
+            <textarea
+              id='text'
+              placeholder='Share your latest spikeball story here...'
+              rows='10'
+              columns='30'
+              className='border text-blue-800 text-sm font-semibold rounded-2xl p-3 m-2 place-items-center resize-none'
+              onChange={handleNewPostChange}
+              value={newPost.text}
+            />
+          </div>
+          <label htmlFor='image_url'></label>
+          <div className='flex justify-evenly '>
+            <button
+              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
+              id='image_url'
+              onClick={handleUpload}
+            >
+              Upload Image
+            </button>
+            <label htmlFor='video_url'></label>
+            <button
+              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
+              id='video_url'
+              onClick={handleUpload}
+            >
+              Upload Video
+            </button>
+          </div>
+          <div className='flex justify-center'>
+            <button
+              className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4 content-center'
+              onClick={handlePost}
+            >
+              Create Post
+            </button>
+          </div>
+        </div>
+        <div className='col-span-3'>
+          {posts.map((post) => (
+            <FeedCard key={post.id} {...post} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }

@@ -1,10 +1,27 @@
 import React from 'react';
 import { registerUser } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { getAllCountries } from '../api/countries';
 
 function SignUp() {
-  const [formInput, setFormInput] = React.useState({ rooms: [] });
+  const [formInput, setFormInput] = React.useState({ rooms: [] }); //Rooms added as a blank field as required by backend
+  const [countries, setCountries] = React.useState('');
+  const [responseError, setResponseError] = React.useState('');
+
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const getData = async () => {
+      try {
+        const countryData = await getAllCountries();
+        countryData.sort();
+        setCountries(countryData);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getData();
+  }, []);
 
   const handleFormChange = (e) => {
     setFormInput({ ...formInput, [e.target.id]: e.target.value });
@@ -17,6 +34,7 @@ function SignUp() {
       navigate('/login');
     } catch (err) {
       console.log(err);
+      setResponseError(err.response.data.message);
     }
   };
 
@@ -42,6 +60,11 @@ function SignUp() {
       .open();
   }
 
+  if (!countries) {
+    return <p>Loading...</p>;
+  }
+
+  console.log('response', responseError);
   console.log(formInput);
   return (
     <div className='flex items-center justify-center min-h-screen bg-gray-100 herosignup'>
@@ -52,11 +75,9 @@ function SignUp() {
         </div>
         <h3 className='text-2xl font-bold text-center'>Join us</h3>
         <form action=''>
-          <div className='flex'>
+          <div className='flex justify-evenly'>
             <div>
-              <label className='block mt-4' htmlFor='first_name'>
-                First Name
-              </label>
+              <label className='block mt-4' htmlFor='first_name'></label>
               <input
                 type='text'
                 id='first_name'
@@ -66,9 +87,7 @@ function SignUp() {
               />
             </div>
             <div>
-              <label className='block mt-4' htmlFor='last_name'>
-                Last Name
-              </label>
+              <label className='block mt-4' htmlFor='last_name'></label>
               <input
                 type='text'
                 id='last_name'
@@ -78,9 +97,7 @@ function SignUp() {
               />
             </div>
           </div>
-          <label className='block mt-4' htmlFor='username'>
-            Username
-          </label>
+          <label className='block mt-4' htmlFor='username'></label>
           <input
             type='text'
             id='username'
@@ -88,9 +105,7 @@ function SignUp() {
             className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
             onChange={handleFormChange}
           />
-          <label className='block mt-4' htmlFor='description'>
-            Description
-          </label>
+          <label className='block mt-4' htmlFor='description'></label>
           <input
             type='text'
             id='description'
@@ -99,72 +114,76 @@ function SignUp() {
             onChange={handleFormChange}
           />
 
-          <label className='block mt-4' htmlFor='gender'>
-            Gender
-          </label>
-          <select
-            id='gender'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            defaultValue={''}
-            onChange={handleFormChange}
-          >
-            <option value='' disabled hidden>
-              Select your option
-            </option>
-            <option value='male'>MALE</option>
-            <option value='female'>FEMALE</option>
-            <option value='non-binary'>NON-BINARY</option>
-            <option value='transgender'>TRANSGENDER</option>
-            <option value='i prefer not to say'>I PREFER NOT TO SAY</option>
-          </select>
+          <div className='flex justify-evenly'>
+            <label className='block mt-4' htmlFor='gender'></label>
+            <select
+              id='gender'
+              className='w-full px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              defaultValue={''}
+              onChange={handleFormChange}
+            >
+              <option value='' disabled hidden>
+                Gender
+              </option>
+              <option value='male'>MALE</option>
+              <option value='female'>FEMALE</option>
+              <option value='non-binary'>NON-BINARY</option>
+              <option value='transgender'>TRANSGENDER</option>
+              <option value='i prefer not to say'>I PREFER NOT TO SAY</option>
+            </select>
 
-          <label className='block mt-4' htmlFor='gender'>
-            Ability
-          </label>
-          <select
-            id='ability'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            onChange={handleFormChange}
-            defaultValue={''}
-          >
-            <option value='' disabled hidden>
-              Select your option
-            </option>
-            <option value='beginner'>BEGINNER</option>
-            <option value='intermediate'>INTERMEDIATE</option>
-            <option value='advanced'>ADVANCED</option>
-            <option value='world class'>WORLD CLASS</option>
-          </select>
+            <label className='block mt-4' htmlFor='ability'></label>
+            <select
+              id='ability'
+              className='px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              onChange={handleFormChange}
+              defaultValue={''}
+            >
+              <option value='' disabled hidden>
+                Ability
+              </option>
+              <option value='beginner'>BEGINNER</option>
+              <option value='intermediate'>INTERMEDIATE</option>
+              <option value='advanced'>ADVANCED</option>
+              <option value='world class'>WORLD CLASS</option>
+            </select>
+          </div>
 
-          {/* <label className='block mt-4'>Town</label>
-          <input
-            type='text'
-            id='town'
-            placeholder='Town'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            onChange={handleFormChange}
-          />
-          <label className='block mt-4'>Country</label>
-          <input
-            type='text'
-            id='country'
-            placeholder='Country'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            onChange={handleFormChange}
-          /> */}
+          <div className='flex justify-evenly'>
+            <label className='block mt-4' htmlFor='town'></label>
+            <input
+              type='text'
+              id='town'
+              placeholder='Town'
+              className='px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              onChange={handleFormChange}
+            />
+            <label className='block mt-4' htmlFor='country'></label>
+            <select
+              id='country'
+              className='w-full px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              onChange={handleFormChange}
+            >
+              {countries.map((country) => (
+                <option key={country.name.common} value={country.cca2}>
+                  {country.name.common}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <label htmlFor='image_url'>Image:</label>
-          <button
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            id='image'
-            onClick={handleUpload}
-          >
-            Upload Image
-          </button>
+          <div className='flex justify-center'>
+            <label className='block mt-4' htmlFor='image_url'></label>
+            <button
+              className='w-1/2 px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              id='image'
+              onClick={handleUpload}
+            >
+              Upload Image
+            </button>
+          </div>
 
-          <label className='block mt-4' htmlFor='email'>
-            Email
-          </label>
+          <label className='block mt-4' htmlFor='email'></label>
           <input
             type='text'
             id='email'
@@ -173,7 +192,7 @@ function SignUp() {
             onChange={handleFormChange}
           />
 
-          <label className='block mt-4'>Password</label>
+          <label className='block mt-4'></label>
           <input
             type='password'
             id='password'
@@ -182,7 +201,7 @@ function SignUp() {
             onChange={handleFormChange}
           />
 
-          <label className='block mt-4'>Confirm Password</label>
+          <label className='block mt-4'></label>
           <input
             type='password'
             id='password_confirmation'
@@ -191,7 +210,7 @@ function SignUp() {
             onChange={handleFormChange}
           />
 
-          <span className='text-xs text-red-400'>Password must be same!</span>
+          <span className='text-xs text-red-400'>{responseError}</span>
 
           <button
             className='w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900'

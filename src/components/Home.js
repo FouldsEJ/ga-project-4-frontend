@@ -1,10 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getLoggedInUserId, getLoggedInUserName } from '../lib/auth';
 
 function Home() {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
+    if (getLoggedInUserName()) {
+      navigate('/feed');
+    }
     navigate('/signup');
   };
 

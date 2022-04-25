@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [loginData, setLoginData] = React.useState('');
+  const [responseError, setResponseError] = React.useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -18,6 +19,7 @@ function Login() {
         navigate('/profile');
       } catch (err) {
         console.error(err);
+        setResponseError(err.response.data.message);
       }
     };
     getData();
@@ -51,13 +53,14 @@ function Login() {
               Password
             </label>
             <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline'
               id='password'
               type='password'
               placeholder='Password'
               onChange={handleChange}
             />
           </div>
+          <p className='text-xs text-red-400 mb-3'>{responseError}</p>
           <div className='flex items-center justify-between'>
             <button
               className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
