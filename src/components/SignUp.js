@@ -14,8 +14,12 @@ function SignUp() {
     const getData = async () => {
       try {
         const countryData = await getAllCountries();
-        countryData.sort();
-        setCountries(countryData);
+        console.log('country data:', countryData);
+        const sortedCountryData = countryData.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+        console.log(sortedCountryData);
+        setCountries(sortedCountryData);
       } catch (err) {
         console.error(err);
       }
@@ -68,7 +72,7 @@ function SignUp() {
   console.log(formInput);
   return (
     <div className='flex items-center justify-center min-h-screen bg-gray-100 herosignup'>
-      <div className='px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3'>
+      <div className='px-8 py-6 mx-4 mt-4 text-left rounded-2xl bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3'>
         <div className='flex justify-center'>
           <i className='fa-solid fa-volleyball'></i>
           <h1 className='text-2xl font-bold text-center'>SpikeSquad</h1>
@@ -162,8 +166,12 @@ function SignUp() {
             <select
               id='country'
               className='w-full px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              defaultValue={''}
               onChange={handleFormChange}
             >
+              <option value='' disabled hidden>
+                Country
+              </option>
               {countries.map((country) => (
                 <option key={country.name.common} value={country.cca2}>
                   {country.name.common}

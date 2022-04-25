@@ -20,6 +20,12 @@ function Messenger() {
     room_id: currentRoomId,
     created_by: userId,
   });
+  const [newRoomInfo, setNewRoomInfo] = React.useState({
+    name: '',
+    users: [getLoggedInUserId()],
+    image: '',
+  });
+  const [render, setRender] = React.useState(true);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -38,14 +44,13 @@ function Messenger() {
       }
     };
     getData();
-  }, [currentRoomId, roomSearch]);
+  }, [currentRoomId, roomSearch, newRoomInfo, render]);
 
   const handleRoomSearch = (e) => {
     setRoomSearch(e.target.value);
   };
 
   const handleRoomClick = (e) => {
-    console.log(e.target.id);
     setCurrentRoomId(e.target.id);
     setNewMessage({ ...newMessage, room_id: e.target.id });
   };
@@ -58,20 +63,18 @@ function Messenger() {
     try {
       await createChat(newMessage);
       setNewMessage({ ...newMessage, text: '' });
+      setRender(!render);
     } catch (err) {
       console.error(err);
     }
   };
 
-  console.log('Room search', roomSearch);
-
   if (!usersRooms) {
     return <p>Loading...</p>;
   }
-  console.log('Room:', currentRoomId);
   return (
-    <div className='w-full h-full grid grid-cols-3 border-2 bg-gray-900 text-gray-200'>
-      <div className='col-span-1'>
+    <div className='w-screen h-screen grid grid-cols-3 border-2 bg-gray-900 text-gray-200 '>
+      <div className='col-span-1 overflow-auto'>
         <div className='bg-gray-700 py-3.5'>
           <input
             type='text'
@@ -81,7 +84,7 @@ function Messenger() {
             onChange={handleRoomSearch}
             value={roomSearch}
           />
-          <NewChat />
+          <NewChat newRoomInfo={newRoomInfo} setNewRoomInfo={setNewRoomInfo} />
         </div>
         {usersRooms.map((room) => (
           <div
@@ -108,11 +111,11 @@ function Messenger() {
       </div>
 
       {!currentRoomInfo ? (
-        <p className='flex justify-center items-center col-span-2 border-l-2'>
+        <p className='flex justify-center items-center col-span-2 border-l-2 '>
           Click on a chat to see the messages!
         </p>
       ) : (
-        <div className='col-span-2 border-l-2'>
+        <div className='col-span-2 border-l-2 '>
           <div className='flex bg-gray-700 justify-center items-center py-3'>
             <img
               src={currentRoomInfo.image}
@@ -121,31 +124,34 @@ function Messenger() {
             />
             <h2 className='text-2xl'>{currentRoomInfo.name}</h2>
           </div>
-          {chats &&
-            chats.map((chat) => (
-              <div key={chat.id}>
-                {chat.created_by.id === getLoggedInUserId() ? (
-                  <div className='mt-2 flex justify-end'>
-                    <p className='px-6 py-3 max-w-md bg-blue-400 rounded-2xl'>
-                      {chat.text}
-                    </p>
-                  </div>
-                ) : (
-                  <div className='mt-2 flex justify-start'>
-                    <img
-                      src={chat.created_by.image}
-                      alt={chat.created_by.username}
-                      className='rounded-full h-12 w-12 mr-2'
-                    />
-                    <p className=' px-6 py-3 max-w-md bg-green-400 rounded-2xl'>
-                      {chat.text}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
 
-          <div className='flex justify-around'>
+          <div className='overflow-auto'>
+            {chats &&
+              chats.map((chat) => (
+                <div key={chat.id}>
+                  {chat.created_by.id === getLoggedInUserId() ? (
+                    <div className='mt-2 flex justify-end'>
+                      <p className='px-6 py-3 max-w-md bg-blue-400 rounded-2xl'>
+                        {chat.text}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className='mt-2 flex justify-start'>
+                      <img
+                        src={chat.created_by.image}
+                        alt={chat.created_by.username}
+                        className='rounded-full h-12 w-12 mr-2'
+                      />
+                      <p className=' px-6 py-3 max-w-md bg-green-400 rounded-2xl'>
+                        {chat.text}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+
+          <div className='flex justify-around items-end '>
             <input
               type='text'
               id='newchat'

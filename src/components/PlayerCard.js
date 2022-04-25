@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createRoom } from '../api/chats';
 import { getLoggedInUserId, getLoggedInUserName } from '../lib/auth';
+import { Link } from 'react-router-dom';
 
 function PlayerCard({
   id,
@@ -29,8 +30,10 @@ function PlayerCard({
     }
   };
 
+  console.log('id is:', id);
+
   return (
-    <>
+    <Link to={`/profile/${id}`}>
       <div className='flex items-center justify-center '>
         <div className='bg-white font-semibold text-center rounded-3xl border shadow-lg p-10 max-w-xs'>
           <img
@@ -77,7 +80,7 @@ function PlayerCard({
           </button>
         </card>
       </div> */}
-    </>
+    </Link>
   );
 }
 

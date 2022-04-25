@@ -21,7 +21,7 @@ function Feed() {
       setPosts(postData);
     };
     getData();
-  }, []);
+  }, [newPost]);
 
   function handleNewPostChange(e) {
     setNewPost({ ...newPost, [e.target.id]: e.target.value });

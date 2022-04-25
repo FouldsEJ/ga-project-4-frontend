@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUserId } from '../lib/auth';
-import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -54,7 +53,7 @@ function Navbar() {
                   </Link>
 
                   <Link
-                    to='/myprofile'
+                    to={`/profile/${getLoggedInUserId()}`}
                     className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                   >
                     My Profile

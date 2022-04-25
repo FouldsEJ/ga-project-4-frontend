@@ -1,6 +1,7 @@
 import React from 'react';
 import { loginUser } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { getLoggedInUserId } from '../lib/auth';
 
 function Login() {
   const [loginData, setLoginData] = React.useState('');
@@ -16,7 +17,7 @@ function Login() {
     const getData = async () => {
       try {
         const { data } = await loginUser(loginData);
-        navigate('/myprofile');
+        navigate(`/profile/${getLoggedInUserId()}`);
       } catch (err) {
         console.error(err);
         setResponseError(err.response.data.message);
@@ -29,7 +30,11 @@ function Login() {
   return (
     <>
       <div className='herologin grid place-items-center h-screen'>
-        <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'>
+        <form className='p-8 text-left rounded-2xl bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3'>
+          <div className='flex justify-center'>
+            <i className='fa-solid fa-volleyball'></i>
+            <h1 className='text-2xl font-bold text-center'>SpikeSquad</h1>
+          </div>
           <div className='mb-4'>
             <label
               className='block text-gray-700 text-sm font-bold mb-2'
@@ -61,15 +66,13 @@ function Login() {
             />
           </div>
           <p className='text-xs text-red-400 mb-3'>{responseError}</p>
-          <div className='flex items-center justify-between'>
-            <button
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-              type='button'
-              onClick={handleSubmit}
-            >
-              Sign In
-            </button>
-          </div>
+
+          <button
+            className='w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900'
+            onClick={handleSubmit}
+          >
+            Login
+          </button>
         </form>
       </div>
 

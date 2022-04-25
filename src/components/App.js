@@ -21,7 +21,6 @@ const App = () => (
       <Route path='/connect' element={<Connect />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
-      <Route path='/myprofile' element={<Profile />} />
       <Route path='/profile/:profileId' element={<Profile />} />
       <Route path='/messenger' element={<Messenger />} />
     </Routes>

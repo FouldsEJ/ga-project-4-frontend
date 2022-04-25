@@ -1,20 +1,16 @@
 import React from 'react';
 import { getAllUsers } from '../api/auth';
 import { getLoggedInUserId } from '../lib/auth';
+import { createRoom } from '../api/chats';
 
-function NewChat() {
-  const [newChatInfo, setNewChatInfo] = React.useState({
-    name: '',
-    users: [getLoggedInUserId()],
-    image: '',
-  });
+function NewChat({ newRoomInfo, setNewRoomInfo }) {
   const [allUsers, setAllUsers] = React.useState('');
-  // const [numberOfMembers, setNumberOfMembers] = React.useState(1);
+  const [createChatShow, setCreateChatShow] = React.useState(true);
 
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const userData = await getAllUsers('');
+        const userData = await getAllUsers('', '');
         setAllUsers(userData);
       } catch (err) {
         console.error(err);
@@ -23,28 +19,42 @@ function NewChat() {
     getData();
   }, []);
 
-  // const handleAddClick = () => {
-  //   setNumberOfMembers(numberOfMembers + 1);
-  // };
+  const handleCreateChatClick = () => {
+    setCreateChatShow(!createChatShow);
+  };
+
+  const handleCreateClick = async () => {
+    try {
+      await createRoom(newRoomInfo);
+      setCreateChatShow(!createChatShow);
+      setNewRoomInfo({
+        name: '',
+        users: [getLoggedInUserId()],
+        image: '',
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleMemberChange = (e, index) => {
-    // if (newChatInfo.users.length === 1) {
-    //   console.log('THIS is Working');
-    //   const oldArray = newChatInfo.users;
-    //   console.log('Old array:', oldArray);
-    //   oldArray.push(e.target.id);
-    //   setNewChatInfo({
-    //     ...newChatInfo,
-    //     name: e.target.value,
-    //     image: e.target.image,
-    //     users: oldArray,
-    //   });
-    // }
+    const arrayOfTargetValues = e.target.value.split(',');
+    const temp_state = [...newRoomInfo.users];
+    temp_state[index + 1] = parseInt(arrayOfTargetValues[0]);
 
-    setNewChatInfo({
-      ...newChatInfo,
-      users: [...newChatInfo.users, parseInt(e.target.value)],
-    });
+    if (index === 0) {
+      setNewRoomInfo({
+        name: arrayOfTargetValues[1],
+        image: arrayOfTargetValues[2],
+        users: [...temp_state],
+      });
+    } else {
+      setNewRoomInfo({
+        ...newRoomInfo,
+        users: [...temp_state],
+        image: './images/default-room-image.png',
+      });
+    }
   };
 
   function handleUpload(e) {
@@ -69,72 +79,88 @@ function NewChat() {
       .open();
   }
 
-  console.log('allUsers', allUsers);
-  console.log('newChatInfo', newChatInfo);
-  console.log('newChatInfo Users length', newChatInfo.users.length);
   if (!allUsers) {
     return <p>Loading...</p>;
   }
   return (
     <>
-      <div className='flex justify-center'>
-        <button className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'>
-          New Individual Chat
-        </button>
-        <button className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'>
-          New Group Chat
-        </button>
-      </div>
-
-      {newChatInfo.users.map((user, index) => (
-        <div key={index} className='flex justify-center items-center'>
-          <label htmlFor='users' className='block mt-3'>
-            Add a member:
-          </label>
-          <select
-            id='users'
-            name='users'
-            value=''
-            defaultValue={''}
-            className='w-1/2 px-2 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-            onChange={(e) => handleMemberChange(e, index)}
-          >
-            <option value='' disabled hidden>
-              Select your option
-            </option>
-            {allUsers.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.username}
-              </option>
-            ))}
-          </select>
-          {/* <button
+      {!createChatShow && (
+        <div>
+          {newRoomInfo.users.map((userId, index) => (
+            <div key={index} className='flex justify-center items-center m-2'>
+              <label htmlFor='users' className='block px-3 font-bold'>
+                Add a member:
+              </label>
+              <select
+                name='users'
+                defaultValue={''}
+                className='w-1/2 px-2 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-gray-600'
+                onChange={(e) => handleMemberChange(e, index)}
+              >
+                <option value='' disabled hidden>
+                  Select your option
+                </option>
+                {allUsers.map((user) => (
+                  <option
+                    key={user.id}
+                    id={user.id}
+                    value={[user.id, user.username, user.image]}
+                  >
+                    {user.username}
+                  </option>
+                ))}
+              </select>
+              {/* <button
             className='ml-10 rounded bg-blue-500 hover:bg-blue-700 text-white font-bold px-2'
             onClick={handleAddClick}
           >
             +
           </button> */}
+            </div>
+          ))}
+          {newRoomInfo.users.length > 2 && (
+            <div className='flex justify-center items-center'>
+              <label htmlFor='name'>Group Name:</label>
+              <input
+                type='text'
+                id='name'
+                placeholder='Name'
+                className='px-1 py-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              />
+              <label htmlFor='image_url' className='ml-2'>
+                Image:
+              </label>
+              <button
+                className='px-2 py-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+                id='image'
+                onClick={handleUpload}
+              >
+                Add Image
+              </button>
+            </div>
+          )}
         </div>
-      ))}
-      <div className='flex justify-center items-center'>
-        <label htmlFor='name'>Group Name:</label>
-        <input
-          type='text'
-          id='name'
-          placeholder='Name'
-          className='px-1 py-1 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-        />
-        <label htmlFor='image_url' className='ml-2'>
-          Image:
-        </label>
-        <button
-          className='px-2 py-1 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
-          id='image'
-          onClick={handleUpload}
-        >
-          Add Image
-        </button>
-      </div>
+      )}
+
+      {createChatShow ? (
+        <div className='flex justify-center'>
+          <button
+            className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+            onClick={handleCreateChatClick}
+          >
+            Create New Chat
+          </button>
+        </div>
+      ) : (
+        <div className='flex justify-center'>
+          <button
+            className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+            onClick={handleCreateClick}
+          >
+            Create
+          </button>
+        </div>
+      )}
     </>
   );
 }

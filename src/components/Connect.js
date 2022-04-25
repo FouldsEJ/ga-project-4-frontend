@@ -10,7 +10,7 @@ function Connect() {
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const playersData = await getAllUsers(search);
+        const playersData = await getAllUsers(search, ''); //empty string added, as no userId needed in search
         setPlayers(playersData);
       } catch (err) {
         console.error(err);

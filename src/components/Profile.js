@@ -1,18 +1,20 @@
 import React from 'react';
 import { getLoggedInUserId } from '../lib/auth';
-import { getSingleUser } from '../api/auth';
-import Messenger from './Messenger';
+import { getAllUsers } from '../api/auth';
+import { useParams } from 'react-router-dom';
 
 function Profile() {
+  const { profileId } = useParams();
   const [user, setUser] = React.useState('');
-  const userId = getLoggedInUserId();
 
-  console.log(userId);
+  console.log('id:', profileId);
+  console.log('logged in user:', getLoggedInUserId());
+  console.log(parseInt(profileId) === getLoggedInUserId());
 
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getSingleUser(userId);
+        const [data] = await getAllUsers('', profileId);
         setUser(data);
       } catch (err) {
         console.error(err);
@@ -27,7 +29,7 @@ function Profile() {
   }
   return (
     <>
-      <section className='container m-auto flex'>
+      <section className='container h-screen w-screen flex p-10 justify-center '>
         <div className='w-full md:w-3/12 md:mx-2'>
           <div className='bg-white p-3'>
             <div className='image overflow-hidden'>
@@ -58,53 +60,50 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className='w-full md:w-9/12 mx-2 h-64'>
-          <div className='bg-white p-3 border shadow-lg rounded-2xl mt-3'>
-            <h1 className='text-center font-bold text-3xl mb-10'>About</h1>
-            <div className='text-gray-700'>
-              <div className='grid md:grid-cols-2 text-sm'>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>First Name</p>
-                  <p className='px-4 py-2'>{user.first_name}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Last Name</p>
-                  <p className='px-4 py-2'>{user.last_name}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Gender</p>
-                  <p className='px-4 py-2'>{user.gender}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Ability</p>
-                  <p className='px-4 py-2'>{user.ability}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Town</p>
-                  <p className='px-4 py-2'>{user.town}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Country</p>
-                  <p className='px-4 py-2'>{user.country}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Email.</p>
-                  <p className='px-4 py-2'>{user.email}</p>
-                </div>
-                <div className='grid grid-cols-2'>
-                  <p className='px-4 py-2 font-semibold'>Birthday</p>
-                  <p className='px-4 py-2'>Feb 06, 1998</p>
-                </div>
+        <div className='w-full md:w-9/12 mx-2 h-64 mt-10 ml-5 bg-white p-3 border shadow-lg rounded-2xl mt-3'>
+          <h1 className='text-center font-bold text-3xl mb-10'>About</h1>
+          <div className='text-gray-700'>
+            <div className='grid md:grid-cols-2 text-sm'>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>First Name</p>
+                <p className='px-4 py-2'>{user.first_name}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Last Name</p>
+                <p className='px-4 py-2'>{user.last_name}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Gender</p>
+                <p className='px-4 py-2'>{user.gender}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Ability</p>
+                <p className='px-4 py-2'>{user.ability}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Town</p>
+                <p className='px-4 py-2'>{user.town}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Country</p>
+                <p className='px-4 py-2'>{user.country}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Email.</p>
+                <p className='px-4 py-2'>{user.email}</p>
+              </div>
+              <div className='grid grid-cols-2'>
+                <p className='px-4 py-2 font-semibold'>Birthday</p>
+                <p className='px-4 py-2'>{user.birthday}</p>
               </div>
             </div>
-            <button className='block w-6/12 m-auto text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 p-3 my-4'>
-              Edit Information
-            </button>
           </div>
+          {/* {getLoggedInUserId() === parseInt(profileId) && (
+              <button className='block w-6/12 m-auto text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 p-3 my-4'>
+                Edit Information
+              </button>
+            )} */}
         </div>
-      </section>
-      <section className='container m-auto'>
-        <h2 className='text-center font-bold text-3xl my-10'>Messages</h2>
       </section>
     </>
   );
