@@ -89,7 +89,7 @@ function SignUp() {
                 type='text'
                 id='first_name'
                 placeholder='First Name'
-                className='w-full px-4 py-2 mt-2 border rounded-md'
+                className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
                 onChange={handleFormChange}
               />
             </div>
@@ -99,7 +99,7 @@ function SignUp() {
                 type='text'
                 id='last_name'
                 placeholder='Last Name'
-                className='w-full px-4 py-2 mt-2 border rounded-md'
+                className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
                 onChange={handleFormChange}
               />
             </div>
@@ -109,7 +109,7 @@ function SignUp() {
             type='text'
             id='username'
             placeholder='Username'
-            className='w-full px-4 py-2 mt-2 border rounded-md '
+            className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
             onChange={handleFormChange}
           />
           <label className='block mt-4' htmlFor='description'></label>
@@ -117,7 +117,7 @@ function SignUp() {
             type='text'
             id='description'
             placeholder='Tell us about you and your spikeball life!'
-            className='w-full px-4 py-2 mt-2 border rounded-md'
+            className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
             onChange={handleFormChange}
           />
 
@@ -162,7 +162,7 @@ function SignUp() {
               type='text'
               id='town'
               placeholder='Town'
-              className='px-4 py-2 m-2 border rounded-md '
+              className='px-4 py-2 m-2 border rounded-md text-black-500'
               onChange={handleFormChange}
             />
             <label className='block mt-4' htmlFor='country'></label>
@@ -199,7 +199,7 @@ function SignUp() {
             type='text'
             id='email'
             placeholder='Email'
-            className='w-full px-4 py-2 mt-2 border rounded-md '
+            className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
             onChange={handleFormChange}
           />
 
@@ -208,7 +208,7 @@ function SignUp() {
             type='password'
             id='password'
             placeholder='Password'
-            className='w-full px-4 py-2 mt-2 border rounded-md '
+            className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
             onChange={handleFormChange}
           />
 
@@ -217,11 +217,11 @@ function SignUp() {
             type='password'
             id='password_confirmation'
             placeholder='Password'
-            className='w-full px-4 py-2 mt-2 border rounded-md '
+            className='w-full px-4 py-2 mt-2 border rounded-md text-black-500'
             onChange={handleFormChange}
           />
 
-          <span className='text-xs text-red-400'>{responseError}</span>
+          <span className='text-xs text-black-500'>{responseError}</span>
 
           <button
             className='w-full px-6 py-2 mt-4 text-white bg-polished-pine-600 rounded-lg hover:bg-polished-pine-900'

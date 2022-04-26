@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = `http://127.0.0.1:8000/`;
-// const baseUrl = `https://spikesquad.herokuapp.com/`;
+// const baseUrl = `http://127.0.0.1:8000/`;
+const baseUrl = `https://spikesquad.herokuapp.com/`;
 
 export const createRoom = async (newRoom) => {
   console.log('newchat data: ', newRoom);
