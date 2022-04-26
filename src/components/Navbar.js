@@ -13,12 +13,12 @@ function Navbar() {
   return (
     <>
       <header>
-        <nav className='bg-gray-800'>
+        <nav className='bg-bdazzled-blue-500 border-b text-white-500'>
           <div className='px-5 flex items-center justify-between h-12'>
             <div className='flex items-baseline space-x-4'>
               <Link
                 to=''
-                className=' hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium'
+                className=' hover:bg-spike-yellow-900  px-3 py-2 rounded-md text-sm font-medium'
               >
                 <i className='fa-solid fa-volleyball'></i>SpikeSquad
               </Link>
@@ -27,14 +27,14 @@ function Navbar() {
                 <>
                   <Link
                     to='/feed'
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='text-gray-300 hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                   >
                     Feed
                   </Link>
 
                   <Link
                     to='/connect'
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='text-gray-300 hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                   >
                     Connect
                   </Link>
@@ -47,20 +47,20 @@ function Navbar() {
                 <>
                   <Link
                     to='/messenger'
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='text-gray-300 hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                   >
                     Messages
                   </Link>
 
                   <Link
                     to={`/profile/${getLoggedInUserId()}`}
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='text-gray-300 hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                   >
                     My Profile
                   </Link>
 
                   <button
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='text-gray-300 hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                     onClick={handleLogout}
                   >
                     Logout
@@ -72,13 +72,13 @@ function Navbar() {
                 <>
                   <Link
                     to='/login'
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className='hover:bg-spike-yellow-900 px-3 py-2 rounded-md text-sm font-medium'
                   >
                     Login
                   </Link>
                   <Link
                     to='/signup'
-                    className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                    className=' hover:bg-spike-yellow-900  px-3 py-2 rounded-md text-sm font-medium'
                   >
                     SignUp
                   </Link>

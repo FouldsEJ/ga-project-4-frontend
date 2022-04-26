@@ -94,7 +94,7 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
               <select
                 name='users'
                 defaultValue={''}
-                className='w-1/2 px-2 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-gray-600'
+                className='w-1/2 px-2 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-black-500'
                 onChange={(e) => handleMemberChange(e, index)}
               >
                 <option value='' disabled hidden>
@@ -145,7 +145,7 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
       {createChatShow ? (
         <div className='flex justify-center'>
           <button
-            className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+            className='rounded-2xl bg-bdazzled-blue-500 hover:bg-bdazzled-blue-700 font-bold p-3 my-4'
             onClick={handleCreateChatClick}
           >
             Create New Chat
@@ -154,7 +154,7 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
       ) : (
         <div className='flex justify-center'>
           <button
-            className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+            className='rounded-2xl bg-bdazzled-blue-500 hover:bg-bdazzled-blue-700  font-bold p-3 my-4'
             onClick={handleCreateClick}
           >
             Create

@@ -116,28 +116,27 @@ function FeedCard({
   }
   return (
     <div className='container m-auto my-10'>
-      <div className='w-8/12 m-auto border-2 border-b-4 border-gray-200 rounded-xl'>
+      <div className='w-8/12 m-auto border-2 border-b-4 border-bdazzled-blue-500 rounded-xl bg-polished-pine-500 text-white-500'>
         <div className='grid grid-cols-6 p-5 gap-y-2'>
           <div>
             <img src={created_by.image} className='w-16 h-16 rounded-full' />
           </div>
           <div className='col-span-5 md:col-span-4 ml-4'>
-            <p className='text-gray-600 font-bold'> {created_by.username} </p>
-            <p className='text-sky-500 font-bold text-xs'>
-              {' '}
-              {created_by.ability}
-            </p>
+            <p className='font-bold'> {created_by.username} </p>
+            <p className='font-bold text-xs'> {created_by.ability}</p>
 
-            <p className='text-gray-400'> {created_datetime} </p>
+            <p> {created_datetime} </p>
           </div>
-          <div className='flex col-start-2 ml-4 md:col-start-auto md:ml-0 md:justify-end'>
-            <button
-              className='rounded-lg text-sky-500 font-bold bg-sky-100  py-1 px-3 text-sm w-fit h-fit'
-              onClick={handleDeletePost}
-            >
-              Delete
-            </button>
-          </div>
+          {parseInt(created_by.id) === getLoggedInUserId() && (
+            <div className='flex col-start-2 ml-4 md:col-start-auto md:ml-0 md:justify-end'>
+              <button
+                className='rounded-lg font-bold bg-bdazzled-blue-100 hover:bg-bdazzled-blue-300  py-1 px-3 text-sm w-fit h-fit'
+                onClick={handleDeletePost}
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
 
         <div className='flex flex-col items-center justify-center'>
@@ -173,7 +172,7 @@ function FeedCard({
 
         <div className='flex justify-between mx-10'>
           <button
-            className='my-2 bg-blue-500 py-1 px-4 rounded text-white text-sm'
+            className='my-2 bg-bdazzled-blue-100 hover:bg-bdazzled-blue-300 py-1 px-4 rounded text-sm'
             onClick={handleAddLike}
           >
             {likes.some((like) => like.created_by === getLoggedInUserId())
@@ -181,17 +180,17 @@ function FeedCard({
               : 'Like'}
           </button>
           <button
-            className='my-2 bg-blue-500 py-1 px-4 rounded text-white text-sm'
+            className='my-2 bg-bdazzled-blue-100 hover:bg-bdazzled-blue-300 py-1 px-4 rounded text-sm'
             onClick={handleAddCommentClick}
           >
             Comment
           </button>
         </div>
 
-        <hr />
-
         {actionsCompleted.viewingComments && (
           <div>
+            <hr />
+
             {comments.map((comment) => (
               <div
                 key={comment.id}
@@ -202,7 +201,7 @@ function FeedCard({
                   alt={comment.created_by.username}
                   className='rounded-full h-12 w-12 mr-2 border'
                 />
-                <div className=' px-6 py-3 max-w-fit bg-gray-300 rounded-2xl text-sm'>
+                <div className=' px-6 py-3 max-w-fit bg-polished-pine-900 rounded-2xl text-sm'>
                   <h3 className='font-semibold'>
                     {comment.created_by.username}
                   </h3>
@@ -221,12 +220,12 @@ function FeedCard({
                 type='text'
                 id='newchat'
                 placeholder='Write a comment'
-                className='block w-9/12 text-blue-800 text-sm rounded-2xl p-3 my-4 ml-12 border'
+                className='block w-9/12 text-black-500 bg-white-500 text-sm rounded-2xl p-3 my-4 ml-12 border'
                 onChange={handleNewCommentChange}
                 value={newComment.text}
               />
               <button
-                className='rounded-2xl mr-10 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+                className='rounded-2xl mr-10 bg-bdazzled-blue-100 hover:bg-bdazzled-blue-300 font-bold p-3 my-4'
                 onClick={handleNewCommentSubmit}
               >
                 Post

@@ -73,14 +73,14 @@ function Messenger() {
     return <p>Loading...</p>;
   }
   return (
-    <div className='w-screen h-screen grid grid-cols-3 border-2 bg-gray-900 text-gray-200 '>
+    <div className='w-screen h-screen grid grid-cols-3 border-2 bg-polished-pine-900 text-white-500'>
       <div className='col-span-1 h-full w-full'>
-        <div className='bg-gray-700 py-3.5 h-1/6 '>
+        <div className='bg-polished-pine-500 py-3.5 h-min border-b-2 '>
           <input
             type='text'
             id='newchat'
             placeholder='Search Messages'
-            className='m-auto w-9/12 text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 grid place-items-center'
+            className='m-auto w-9/12 text-black-500 text-sm font-semibold rounded-2xl p-3 my-4 grid place-items-center'
             onChange={handleRoomSearch}
             value={roomSearch}
           />
@@ -92,7 +92,7 @@ function Messenger() {
               key={room.id}
               id={room.id}
               onClick={handleRoomClick}
-              className='flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative'
+              className='flex justify-between items-center p-3 hover:bg-polished-pine-500 rounded-lg relative'
             >
               <img
                 className='w-16 h-16 shadow-md rounded-full object-cover'
@@ -101,7 +101,7 @@ function Messenger() {
                 alt={room.name}
               />
               <p
-                className='flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block'
+                className='flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block font-bold'
                 id={room.id}
               >
                 {room.name}
@@ -117,7 +117,7 @@ function Messenger() {
         </p>
       ) : (
         <div className='col-span-2 border-l-2 '>
-          <div className='flex bg-gray-700 justify-center items-center py-3'>
+          <div className='flex bg-polished-pine-500 justify-center items-center py-3 border-b-2 '>
             <img
               src={currentRoomInfo.image}
               alt={currentRoomInfo.name}
@@ -132,7 +132,7 @@ function Messenger() {
                 <div key={chat.id}>
                   {chat.created_by.id === getLoggedInUserId() ? (
                     <div className='mt-2 flex justify-end'>
-                      <p className='px-6 py-3 max-w-md bg-blue-400 rounded-2xl'>
+                      <p className='px-6 py-3 max-w-md bg-steel-blue-900 rounded-2xl text-bdazzled-blue-800'>
                         {chat.text}
                       </p>
                     </div>
@@ -143,7 +143,7 @@ function Messenger() {
                         alt={chat.created_by.username}
                         className='rounded-full h-12 w-12 mr-2'
                       />
-                      <p className=' px-6 py-3 max-w-md bg-green-400 rounded-2xl'>
+                      <p className=' px-6 py-3 max-w-md bg-spike-yellow-400 rounded-2xl text-bdazzled-blue-800'>
                         {chat.text}
                       </p>
                     </div>
@@ -157,12 +157,12 @@ function Messenger() {
               type='text'
               id='newchat'
               placeholder='Aa'
-              className='block w-9/12 text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4'
+              className='block w-9/12 text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 text-black-500'
               onChange={handleNewMessage}
               value={newMessage.text}
             />
             <button
-              className='rounded-2xl mr-10 bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4'
+              className='rounded-2xl mr-10 bg-bdazzled-blue-500 hover:bg-bdazzled-blue-700 font-bold p-3 my-4'
               onClick={handleNewMessageSubmit}
             >
               Send

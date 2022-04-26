@@ -31,7 +31,7 @@ function Connect() {
 
   return (
     <>
-      <div className='border flex justify-center items-center'>
+      <div className='border-b flex justify-center items-center bg-polished-pine-500'>
         <label htmlFor='search'></label>
         <input
           type='text'
@@ -42,7 +42,7 @@ function Connect() {
           value={search}
         />
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-4'>
+      <div className='grid grid-cols-1 md:grid-cols-4 bg-steel-blue-300'>
         {players.map(
           (player) =>
             player.id !== getLoggedInUserId() && (

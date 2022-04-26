@@ -68,8 +68,8 @@ function Feed() {
 
   return (
     <>
-      <section className='grid grid-cols-4'>
-        <div className='border col-span-1 h-screen pt-10'>
+      <section className='grid grid-cols-4 bg-steel-blue-500'>
+        <div className='border-r border-white-500 col-span-1 h-full pt-10 bg-bdazzled-blue-500 text-white-500'>
           <h2 className='font-bold text-center'>Create Your Own Post</h2>
           <div className='flex flex-col justify-center'>
             <label htmlFor='title'></label>
@@ -77,7 +77,7 @@ function Feed() {
               type='text'
               id='title'
               placeholder='Post Title '
-              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 m-2  place-items-center'
+              className=' border text-sm font-semibold rounded-2xl p-3 m-2  place-items-center text-black-500'
               onChange={handleNewPostChange}
               value={newPost.title}
             />
@@ -87,7 +87,7 @@ function Feed() {
               placeholder='Share your latest spikeball story here...'
               rows='10'
               columns='30'
-              className='border text-blue-800 text-sm font-semibold rounded-2xl p-3 m-2 place-items-center resize-none'
+              className='border text-black-500 text-sm font-semibold rounded-2xl p-3 m-2 place-items-center resize-none'
               onChange={handleNewPostChange}
               value={newPost.text}
             />
@@ -95,7 +95,7 @@ function Feed() {
           <label htmlFor='image_url'></label>
           <div className='flex justify-evenly '>
             <button
-              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
+              className=' text-white-500 bg-polished-pine-500 hover:bg-polished-pine-700  text-xs font-semibold rounded-2xl p-3 my-2 ml-10 place-items-center'
               id='image_url'
               onClick={handleUpload}
             >
@@ -103,7 +103,7 @@ function Feed() {
             </button>
             <label htmlFor='video_url'></label>
             <button
-              className=' border text-blue-800 text-sm font-semibold rounded-2xl p-3 my-4 place-items-center'
+              className=' text-white-500 bg-polished-pine-500 hover:bg-polished-pine-700 text-xs font-semibold rounded-2xl p-1 my-2 mr-10 place-items-center'
               id='video_url'
               onClick={handleUpload}
             >
@@ -112,7 +112,7 @@ function Feed() {
           </div>
           <div className='flex justify-center'>
             <button
-              className='rounded-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 my-4 content-center'
+              className='rounded-2xl text-white-500 bg-polished-pine-500 hover:bg-polished-pine-700 font-bold p-4 my-4 content-center'
               onClick={handlePost}
             >
               Create Post

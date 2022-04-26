@@ -74,8 +74,8 @@ function SignUp() {
   console.log('response', responseError);
   console.log(formInput);
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gray-100 herosignup'>
-      <div className='px-8 py-6 mx-4 mt-4 text-left rounded-2xl bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3'>
+    <div className='flex items-center justify-center min-h-screen herosignup'>
+      <div className='px-8 py-6 mx-4 mt-4 rounded-2xl shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3 bg-bdazzled-blue-500 text-white-500'>
         <div className='flex justify-center'>
           <i className='fa-solid fa-volleyball'></i>
           <h1 className='text-2xl font-bold text-center'>SpikeSquad</h1>
@@ -89,7 +89,7 @@ function SignUp() {
                 type='text'
                 id='first_name'
                 placeholder='First Name'
-                className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+                className='w-full px-4 py-2 mt-2 border rounded-md'
                 onChange={handleFormChange}
               />
             </div>
@@ -99,7 +99,7 @@ function SignUp() {
                 type='text'
                 id='last_name'
                 placeholder='Last Name'
-                className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+                className='w-full px-4 py-2 mt-2 border rounded-md'
                 onChange={handleFormChange}
               />
             </div>
@@ -109,7 +109,7 @@ function SignUp() {
             type='text'
             id='username'
             placeholder='Username'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+            className='w-full px-4 py-2 mt-2 border rounded-md '
             onChange={handleFormChange}
           />
           <label className='block mt-4' htmlFor='description'></label>
@@ -117,7 +117,7 @@ function SignUp() {
             type='text'
             id='description'
             placeholder='Tell us about you and your spikeball life!'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+            className='w-full px-4 py-2 mt-2 border rounded-md'
             onChange={handleFormChange}
           />
 
@@ -125,7 +125,7 @@ function SignUp() {
             <label className='block mt-4' htmlFor='gender'></label>
             <select
               id='gender'
-              className='w-full px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              className='w-full px-4 py-2 m-2 rounded-md text-black-500'
               defaultValue={''}
               onChange={handleFormChange}
             >
@@ -142,7 +142,7 @@ function SignUp() {
             <label className='block mt-4' htmlFor='ability'></label>
             <select
               id='ability'
-              className='px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              className='px-4 py-2 m-2 rounded-md text-black-500'
               onChange={handleFormChange}
               defaultValue={''}
             >
@@ -162,13 +162,13 @@ function SignUp() {
               type='text'
               id='town'
               placeholder='Town'
-              className='px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              className='px-4 py-2 m-2 border rounded-md '
               onChange={handleFormChange}
             />
             <label className='block mt-4' htmlFor='country'></label>
             <select
               id='country'
-              className='w-full px-4 py-2 m-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              className='w-full px-4 py-2 m-2 rounded-md text-black-500'
               defaultValue={''}
               onChange={handleFormChange}
             >
@@ -186,7 +186,7 @@ function SignUp() {
           <div className='flex justify-center'>
             <label className='block mt-4' htmlFor='image_url'></label>
             <button
-              className='w-1/2 px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+              className='w-1/2 px-4 py-2 mt-2 border rounded-md hover:bg-bdazzled-blue-700 '
               id='image'
               onClick={handleUpload}
             >
@@ -199,7 +199,7 @@ function SignUp() {
             type='text'
             id='email'
             placeholder='Email'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+            className='w-full px-4 py-2 mt-2 border rounded-md '
             onChange={handleFormChange}
           />
 
@@ -208,7 +208,7 @@ function SignUp() {
             type='password'
             id='password'
             placeholder='Password'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+            className='w-full px-4 py-2 mt-2 border rounded-md '
             onChange={handleFormChange}
           />
 
@@ -217,14 +217,14 @@ function SignUp() {
             type='password'
             id='password_confirmation'
             placeholder='Password'
-            className='w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+            className='w-full px-4 py-2 mt-2 border rounded-md '
             onChange={handleFormChange}
           />
 
           <span className='text-xs text-red-400'>{responseError}</span>
 
           <button
-            className='w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900'
+            className='w-full px-6 py-2 mt-4 text-white bg-polished-pine-600 rounded-lg hover:bg-polished-pine-900'
             onClick={handleFormSubmit}
           >
             Create Account
@@ -232,7 +232,10 @@ function SignUp() {
 
           <p className='mt-6 text-grey-dark'>
             Already have an account?
-            <a className='text-blue-600 hover:underline' href='/login'>
+            <a
+              className='text-blue-600 underline hover:font-bold'
+              href='/login'
+            >
               Log in
             </a>
           </p>

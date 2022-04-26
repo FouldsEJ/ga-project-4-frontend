@@ -6,17 +6,19 @@ function Home() {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    if (getLoggedInUserName()) {
+    if (getLoggedInUserId()) {
       navigate('/feed');
+    } else {
+      navigate('/signup');
     }
-    navigate('/signup');
   };
 
+  console.log('user id', getLoggedInUserId());
   return (
     <div className='hero mx-auto h-screen'>
-      <h1 className='text-6xl text-white'>Ready, Set, Spike!!!</h1>
+      <h1 className='text-6xl text-white-500'>Ready, Set, Spike!!!</h1>
       <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+        className='bg-bdazzled-blue-500 hover:bg-bdazzled-blue-900 text-white-500 font-bold py-2 px-4 rounded border'
         onClick={handleButtonClick}
       >
         Join The SpikeSquad

@@ -30,20 +30,17 @@ function Login() {
   return (
     <>
       <div className='herologin grid place-items-center h-screen'>
-        <form className='p-8 text-left rounded-2xl bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3'>
+        <form className='p-8 rounded-2xl bg-bdazzled-blue-500 shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3 text-white-500 border'>
           <div className='flex justify-center'>
             <i className='fa-solid fa-volleyball'></i>
             <h1 className='text-2xl font-bold text-center'>SpikeSquad</h1>
           </div>
           <div className='mb-4'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='username'
-            >
+            <label className='block text-sm font-bold mb-2' htmlFor='username'>
               Email
             </label>
             <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              className=' text-black-500 border rounded-xl w-full py-2 px-3  text-black-500'
               id='email'
               type='email'
               placeholder='Email'
@@ -51,14 +48,11 @@ function Login() {
             />
           </div>
           <div className='mb-6'>
-            <label
-              className='block text-gray-700 text-sm font-bold mb-2'
-              htmlFor='password'
-            >
+            <label className='block text-sm font-bold mb-2' htmlFor='password'>
               Password
             </label>
             <input
-              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline'
+              className=' text-black-500  border rounded-xl w-full py-2 px-3  text-black-500  mb-1 '
               id='password'
               type='password'
               placeholder='Password'
@@ -68,7 +62,7 @@ function Login() {
           <p className='text-xs text-red-400 mb-3'>{responseError}</p>
 
           <button
-            className='w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900'
+            className='w-full px-6 py-2 mt-4 text-white bg-polished-pine-500 hover:bg-polished-pine-700 rounded-lg font-bold'
             onClick={handleSubmit}
           >
             Login

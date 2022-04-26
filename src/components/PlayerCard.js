@@ -35,18 +35,18 @@ function PlayerCard({
   return (
     <Link to={`/profile/${id}`}>
       <div className='flex items-center justify-center col-span-1 w-full h-full'>
-        <div className='bg-white font-semibold text-center rounded-2xl border shadow-lg p-10 w-full  h-4/5 m-10'>
+        <div className='bg-bdazzled-blue-500 text-white-500 font-semibold text-center rounded-2xl border shadow-lg p-10 w-full  h-4/5 m-10'>
           <img
             className='mb-3 w-32 h-32 rounded-full shadow-lg mx-auto'
             src={image}
             alt={username}
           />
-          <h1 className='text-lg text-gray-700'>{username}</h1>
-          <h3 className='text-sm text-gray-400 '>{ability}</h3>
-          <p className='text-xs text-gray-400 mt-4 h-8'> {description} </p>
+          <h1 className='text-lg font-bold'>{username}</h1>
+          <h3 className='text-sm '>{ability}</h3>
+          <p className='text-xs mt-4 h-8'> {description} </p>
 
           <button
-            className='bg-blue-600 px-8 py-2 mt-8 rounded-2xl text-gray-100 font-semibold hover:bg-blue-700'
+            className='bg-polished-pine-500 hover:bg-polished-pine-700 px-8 py-2 mt-8 rounded-2xl font-semibold border-'
             onClick={handleConnectClick}
           >
             Connect
