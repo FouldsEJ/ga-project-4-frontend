@@ -23,7 +23,8 @@ function Messenger() {
   const [newRoomInfo, setNewRoomInfo] = React.useState({
     name: '',
     users: [getLoggedInUserId()],
-    image: '',
+    image:
+      'https://res.cloudinary.com/efoulds24/image/upload/v1652884187/default-room-image_dlqp1h.png',
   });
   const [render, setRender] = React.useState(true);
 

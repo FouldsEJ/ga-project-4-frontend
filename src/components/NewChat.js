@@ -50,14 +50,16 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
       });
     } else {
       setNewRoomInfo({
-        ...newRoomInfo,
+        name: 'Unnamed Chat',
         users: [...temp_state],
-        image: './images/default-room-image.png',
+        image:
+          'https://res.cloudinary.com/efoulds24/image/upload/v1652884187/default-room-image_dlqp1h.png',
       });
     }
   };
 
   function handleUpload(e) {
+    console.log(e.target.id);
     e.preventDefault();
     window.cloudinary
       .createUploadWidget(
@@ -70,14 +72,18 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
           if (result.event !== 'success') {
             return;
           }
-          setFormInput({
-            ...formInput,
+          setNewRoomInfo({
+            ...newRoomInfo,
             [e.target.id]: result.info.secure_url,
           });
         }
       )
       .open();
   }
+
+  const handleNewName = (e) => {
+    setNewRoomInfo({ ...newRoomInfo, name: e.target.value });
+  };
 
   if (!allUsers) {
     return <p>Loading...</p>;
@@ -94,7 +100,7 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
               <select
                 name='users'
                 defaultValue={''}
-                className='w-1/2 px-2 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-black-500'
+                className='w-1/2 px-2 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-black-500 '
                 onChange={(e) => handleMemberChange(e, index)}
               >
                 <option value='' disabled hidden>
@@ -125,7 +131,9 @@ function NewChat({ newRoomInfo, setNewRoomInfo }) {
                 type='text'
                 id='name'
                 placeholder='Name'
-                className='px-1 py-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'
+                className='px-1 py-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-black-500'
+                value={newRoomInfo.name}
+                onChange={handleNewName}
               />
               <label htmlFor='image_url' className='ml-2'>
                 Image:
